@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Oportunidades - Dubai Construtora</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+        }
+        .status-badge {
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            color: white;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+        .status-em-obras { background-color: #2563eb; } /* Blue */
+        .status-ultimas-unidades { background-color: #f97316; } /* Orange */
+        .status-breve-lancamento { background-color: #16a34a; } /* Green */
+        .status-100-vendido { background-color: #4b5563; } /* Gray */
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+    <div class="container mx-auto max-w-4xl p-4">
+        
+        <!-- Cabeçalho -->
+        <header class="text-center my-8">
+            <img src="https://www.construtoradubai.com.br/assets/images/logo.svg" alt="Logo Dubai Construtora" class="h-12 mx-auto mb-4">
+            <h1 class="text-3xl font-bold text-gray-900">Nossas Oportunidades</h1>
+            <p class="text-gray-600 mt-2">Confira os empreendimentos disponíveis.</p>
+        </header>
+
+        <!-- Grade de Empreendimentos -->
+        <main id="opportunities-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- Os cards dos empreendimentos serão inseridos aqui pelo JavaScript -->
+        </main>
+
+        <!-- Rodapé -->
+        <footer class="text-center mt-12 mb-6">
+            <p class="text-sm text-gray-500">
+                Este é um web app não oficial criado para visualização.
+                <br>
+                Para informações oficiais, visite 
+                <a href="https://www.construtoradubai.com.br/" target="_blank" class="font-semibold text-blue-600 hover:underline">
+                    construtoradubai.com.br
+                </a>.
+            </p>
+        </footer>
+
+    </div>
+
+    <script>
+        // Dados dos empreendimentos (extraídos do site oficial)
+        // Estes dados são estáticos e podem precisar de atualização manual se o site original mudar.
+        const opportunities = [
+            {
+                name: "Dubai One",
+                status: "Breve Lançamento",
+                location: "Perdizes, São Paulo",
+                features: "1 e 2 dorms. | Studios",
+                imageUrl: "https://www.construtoradubai.com.br/storage/uploads/empreendimentos/2023/10/05/dubai-one-fachada-desktop-1-651ee3e2501a4.webp",
+                link: "https://www.construtoradubai.com.br/dubai-one"
+            },
+            {
+                name: "Dubai Resort",
+                status: "Em Obras",
+                location: "Itu, São Paulo",
+                features: "2 e 3 dorms. com suíte | 72 e 92m²",
+                imageUrl: "https://www.construtoradubai.com.br/storage/uploads/empreendimentos/2023/07/26/dubai-resort-itu-fachada-desktop-1-64c1482e1c3a6.webp",
+                link: "https://www.construtoradubai.com.br/dubai-resort-itu"
+            },
+            {
+                name: "Dubai Tower",
+                status: "Em Obras",
+                location: "Osasco, São Paulo",
+                features: "2 e 3 dorms. com suíte | 55 e 70m²",
+                imageUrl: "https://www.construtoradubai.com.br/storage/uploads/empreendimentos/2023/04/10/dubai-tower-osasco-fachada-desktop-1-6434316d860d4.webp",
+                link: "https://www.construtoradubai.com.br/dubai-tower-osasco"
+            },
+            {
+                name: "Dubai L'essence",
+                status: "Últimas Unidades",
+                location: "Osasco, São Paulo",
+                features: "2 e 3 dorms. com suíte | 61 e 77m²",
+                imageUrl: "https://www.construtoradubai.com.br/storage/uploads/empreendimentos/2023/04/10/dubai-lessence-osasco-fachada-desktop-1-643430c5e3170.webp",
+                link: "https://www.construtoradubai.com.br/dubai-lessence-osasco"
+            },
+            {
+                name: "Spotlight",
+                status: "Últimas Unidades",
+                location: "Osasco, São Paulo",
+                features: "2 dorms. | 48 a 54m²",
+                imageUrl: "https://www.construtoradubai.com.br/storage/uploads/empreendimentos/2023/04/10/spotlight-osasco-fachada-desktop-2-6434300305a41.webp",
+                link: "https://www.construtoradubai.com.br/spotlight-osasco"
+            },
+            {
+                name: "The Stage",
+                status: "100% Vendido",
+                location: "Osasco, São Paulo",
+                features: "Studios | 25 a 41m²",
+                imageUrl: "https://www.construtoradubai.com.br/storage/uploads/empreendimentos/2023/04/10/the-stage-osasco-fachada-desktop-2-64342ed290ac9.webp",
+                link: "https://www.construtoradubai.com.br/the-stage-osasco"
+            }
+        ];
+
+        // Função para criar o card de cada empreendimento
+        function createOpportunityCard(opp) {
+            // Normaliza o status para usar como classe CSS
+            const statusClass = 'status-' + opp.status.toLowerCase()
+                .replace(/ /g, '-') // substitui espaços por hífens
+                .replace(/[^a-z0-9-]/g, ''); // remove caracteres especiais
+
+            return `
+                <div class="bg-white rounded-xl shadow-lg overflow-hidden flex flex-col transition-transform duration-300 hover:scale-105 hover:shadow-2xl">
+                    <div class="relative">
+                        <img src="${opp.imageUrl}" alt="Fachada do ${opp.name}" class="w-full h-48 object-cover" onerror="this.onerror=null;this.src='https://placehold.co/600x400/e2e8f0/475569?text=Imagem+Indisponível';">
+                        <div class="status-badge ${statusClass}">${opp.status}</div>
+                    </div>
+                    <div class="p-5 flex flex-col flex-grow">
+                        <h2 class="text-xl font-bold text-gray-900">${opp.name}</h2>
+                        <p class="text-sm text-gray-500 mt-1">${opp.location}</p>
+                        <p class="text-gray-700 mt-3 font-semibold">${opp.features}</p>
+                        <div class="mt-auto pt-4">
+                            <a href="${opp.link}" target="_blank" class="block w-full text-center bg-blue-600 text-white font-semibold py-2 rounded-lg transition-colors hover:bg-blue-700">
+                                Saiba Mais
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Renderiza todos os cards na página
+        function renderOpportunities() {
+            const grid = document.getElementById('opportunities-grid');
+            if (grid) {
+                grid.innerHTML = opportunities.map(createOpportunityCard).join('');
+            }
+        }
+
+        // Inicializa a renderização quando a página carregar
+        document.addEventListener('DOMContentLoaded', renderOpportunities);
+    </script>
+</body>
+</html>
